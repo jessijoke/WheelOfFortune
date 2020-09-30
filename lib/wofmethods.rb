@@ -14,7 +14,7 @@ class WheelOfFortune
 
     puzzle_selector = 0
     @puzzle_selector = puzzle_selector
-    @puzzle_length = puzzles.length
+    @puzzle_length = puzzles.length - 1
 
     letterinput = ""
     @letterinput = letterinput
@@ -100,8 +100,10 @@ class WheelOfFortune
   def letter_in_puzzle
     @display = []
     @excludeddisplay << @letterinput
-    multiplier = @currentpuzzle.count(@letterinput)
-    if @currentpuzzle.include?(@letterinput)
+    @puzzlecheck = @currentpuzzle.downcase
+    multiplier = @puzzlecheck.count(@letterinput)
+    puts @puzzlecheck
+    if @puzzlecheck.include?(@letterinput)
       @score += (@turnvalue*multiplier)
     else
       @score -= @turnvalue
