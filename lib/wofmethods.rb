@@ -18,7 +18,7 @@ class WheelOfFortune
       @puzzles = puzzles
 
       #array of values that can be spun on the wheel
-      wheel = [800, 500, 650, 500, 900, "bankrupt", 5000, 500, 900, 700, 600, 800, 500, 700, 500, 600, 550, 500, 900, "Bankrupt", 650, 900, 700, 2500]
+      wheel = [800, 500, 650, 500, 900, "Bankrupt", 5000, 500, 900, 700, 600, 800, 500, 700, 500, 600, 550, 500, 900, "Bankrupt", 650, 900, 700, 2500]
       @wheel = wheel
   
       #initializes the variable that contains the number that selects a puzzle from the array
@@ -141,6 +141,7 @@ class WheelOfFortune
     #calls display_board method
     def blank_puzzle
       @displayboard = @currentpuzzle.downcase.split(//)
+      @remainingletters = @currentpuzzle.downcase.split(//)
       @display = []
       @excludeddisplay << @letterinput
       display_board
@@ -168,7 +169,8 @@ class WheelOfFortune
     #if it is not, run the letter_in_puzzle method
     #if they did spin bankrupt, and their score isn't negative, make their score 0
     def spin_wheel
-        if @turnvalue != "Bankrupt"        
+      if remaining_cons?
+        if @turnvalue != "bankrupt"        
             puts "You spun $#{@turnvalue}! Choose a consonant"
             @letterinput = gets.strip.downcase
             if !@vowels.include?(@letterinput)
@@ -181,10 +183,16 @@ class WheelOfFortune
                 spin_wheel
             end
         else
+          puts "You spun $#{@turnvalue}!"
           if @score > 0
               @score = 0
           end
+          choose_an_option
         end
+      else
+        puts "There are no remaining consonants, buy a vowel or solve the puzzle."
+        choose_an_option
+      end
     end
   
     #selects a random element from the @wheel array
@@ -193,7 +201,23 @@ class WheelOfFortune
         wheelpick = rand(0..wheellength)
         @turnvalue = @wheel[wheelpick]
     end
-  
+
+    def remaining_cons?
+      #if @letterinput != nil
+      #  inputindex = @remainingletters.index(@letterinput).to_i
+      #end
+      #print @remainingletters
+      @remainingletters.each do |el|
+        if @consonants.include?(el)
+          print "#{el}"
+          if @letterinput != nil
+            return true
+          end
+          return true
+        end
+      end
+      return false
+    end
     
     def letter_in_puzzle
       @display = []
@@ -201,6 +225,7 @@ class WheelOfFortune
       @puzzlecheck = @currentpuzzle.downcase
       multiplier = @puzzlecheck.count(@letterinput)
       puts @puzzlecheck
+      @remainingletters.reject! { |x| x == @letterinput}
       if @puzzlecheck.include?(@letterinput)
         @score += (@turnvalue*multiplier)
       else
