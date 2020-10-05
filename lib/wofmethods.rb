@@ -160,6 +160,13 @@ class WheelOfFortune
         end
       end
       @gameboard = @display.join
+      if @gameboard == @currentpuzzle.downcase 
+        if @score > 0
+          puts "Congratulations!!! YOU WIN!!! Total Prize: $#{@score}"
+        else
+          puts "Your final total was $#{@score}... Oh well. ¯\_(ツ)_/¯ You tried."
+        end
+      end
     end
   
     #if the wheel doesn't spin bankrupt
@@ -170,7 +177,7 @@ class WheelOfFortune
     #if they did spin bankrupt, and their score isn't negative, make their score 0
     def spin_wheel
       if remaining_cons?
-        if @turnvalue != "bankrupt"        
+        if @turnvalue != "Bankrupt"        
             puts "You spun $#{@turnvalue}! Choose a consonant"
             @letterinput = gets.strip.downcase
             if !@vowels.include?(@letterinput)
@@ -203,10 +210,6 @@ class WheelOfFortune
     end
 
     def remaining_cons?
-      #if @letterinput != nil
-      #  inputindex = @remainingletters.index(@letterinput).to_i
-      #end
-      #print @remainingletters
       @remainingletters.each do |el|
         if @consonants.include?(el)
           #print "#{el}"
@@ -250,13 +253,13 @@ class WheelOfFortune
   
     def buy_vowel
       if remaining_vowels? 
-        if @score >= 2500
+        if @score >= 1500
           puts "Select a Vowel"
           @vowelchoice = gets.strip.downcase
           vowel_in_puzzle
         else
           puts " "
-          puts "A vowel costs $2500, you can't afford a vowel right now."
+          puts "A vowel costs $1500, you can't afford a vowel right now."
           puts " "
           choose_an_option
         end
@@ -269,7 +272,8 @@ class WheelOfFortune
     def vowel_in_puzzle
       @display = []
       @excludeddisplay << @vowelchoice
-      @score -= 2500
+      @remainingletters.reject! { |x| x == @vowelchoice}
+      @score -= 1500
       display_board
       play
     end
@@ -278,11 +282,15 @@ class WheelOfFortune
       puts "Solve the Puzzle!"
       @solvethepuzzle = gets.strip.downcase
       if @solvethepuzzle == @currentpuzzle.downcase
-        puts "YOU WIN!!! Total Prize: $#{@score}"
-      else
+          if @score > 0
+            puts "Congratulations!!! YOU WIN!!! Total Prize: $#{@score}"
+          else
+            puts "Your final total was $#{@score}... Oh well. ¯\_(ツ)_/¯ You tried."
+          end
+        else
         puts "That's not it, keep playing!"
         play
       end
     end
+
   end
-  
