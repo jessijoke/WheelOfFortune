@@ -190,7 +190,7 @@ class WheelOfFortune
           choose_an_option
         end
       else
-        puts "There are no remaining consonants, buy a vowel or solve the puzzle."
+        puts "There are no remaining consonants."
         choose_an_option
       end
     end
@@ -209,7 +209,20 @@ class WheelOfFortune
       #print @remainingletters
       @remainingletters.each do |el|
         if @consonants.include?(el)
-          print "#{el}"
+          #print "#{el}"
+          if @letterinput != nil
+            return true
+          end
+          return true
+        end
+      end
+      return false
+    end
+
+    def remaining_vowels? 
+      @remainingletters.each do |el|
+        if @vowels.include?(el)
+          #print "#{el}"
           if @letterinput != nil
             return true
           end
@@ -236,14 +249,19 @@ class WheelOfFortune
     end
   
     def buy_vowel
-      if @score >= 2500
-        puts "Select a Vowel"
-        @vowelchoice = gets.strip.downcase
-        vowel_in_puzzle
+      if remaining_vowels? 
+        if @score >= 2500
+          puts "Select a Vowel"
+          @vowelchoice = gets.strip.downcase
+          vowel_in_puzzle
+        else
+          puts " "
+          puts "A vowel costs $2500, you can't afford a vowel right now."
+          puts " "
+          choose_an_option
+        end
       else
-        puts " "
-        puts "A vowel costs $2500, you can't afford a vowel right now."
-        puts " "
+        puts "There are no remaining vowels."
         choose_an_option
       end
     end
