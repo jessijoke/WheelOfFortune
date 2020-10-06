@@ -209,6 +209,7 @@ class WheelOfFortune
         @turnvalue = @wheel[wheelpick]
     end
 
+    #iterates through the remaining letters and compares them to consonants array, returns true if any of the remaining letters are consonants
     def remaining_cons?
       @remainingletters.each do |el|
         if @consonants.include?(el)
@@ -222,6 +223,7 @@ class WheelOfFortune
       return false
     end
 
+    #iterates through the remaining letters and compares them to vowels array, returns true if any of the remaining letters are vowels
     def remaining_vowels? 
       @remainingletters.each do |el|
         if @vowels.include?(el)
@@ -235,12 +237,17 @@ class WheelOfFortune
       return false
     end
     
+    #Adds the input letter into the excluded display so it can no longer be selected by the user after this
+    #determines how many of the selected letter is in the puzzle to create a multiplier for the score
+    #removes the input letters from the remaining letters array
+    #checks if the puzzle includes the letter, if so, adds to the score orr subtracts
+    #updates the display board and lets you make your next move
     def letter_in_puzzle
       @display = []
       @excludeddisplay << @letterinput
       @puzzlecheck = @currentpuzzle.downcase
       multiplier = @puzzlecheck.count(@letterinput)
-      puts @puzzlecheck
+      #puts @puzzlecheck
       @remainingletters.reject! { |x| x == @letterinput}
       if @puzzlecheck.include?(@letterinput)
         @score += (@turnvalue*multiplier)
@@ -251,6 +258,10 @@ class WheelOfFortune
       play
     end
   
+    #checks if there are vowels remaining in the puzzle
+    #if so, checks if your score is above 1500, if not choose another option
+    #if so, lets you choose a vowel and calls vowel_in_puzzle
+    #if not tells you no and to choose a diferent option
     def buy_vowel
       if remaining_vowels? 
         if @score >= 1500
@@ -268,7 +279,12 @@ class WheelOfFortune
         choose_an_option
       end
     end
-  
+
+    #adds your vowel choice to the excluded array so it can't be chosen again
+    #removed vowel choice from remaining letters array
+    #subtracts score
+    #updates display board
+    #make new turn
     def vowel_in_puzzle
       @display = []
       @excludeddisplay << @vowelchoice
@@ -278,6 +294,7 @@ class WheelOfFortune
       play
     end
   
+    #if you input the correct puzzle, determine outcome, else keep playing
     def solve_puzzle
       puts "Solve the Puzzle!"
       @solvethepuzzle = gets.strip.downcase
