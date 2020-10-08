@@ -37,12 +37,18 @@ Then run 'ruby bin/wof' to play
 
 Instructions to Play
 
-Wheel of Foftune is a one player game based off the game show. When you start you are given a game board with dashes that indicate letters. Your goal is to guess the phrase the dashes represent.
+Wheel of Foftune is a one player game based off the game show. 
+When you start you are given a game board with dashes that indicate letters. 
+Your goal is to guess the phrase the dashes represent.
 
 Each turn you can choose to spin the wheel, buy a vowel, or solve the puzzle.
 
-If you spinning the wheel will give you a value (or if you are unlucky, you will hit the bankrupt space and lose all your money!). When you get the value you can guess a letter, you are awarded the prize * the amount of letters in the puzzle. For example, if you spin $500, choose "T" and there are 2 "T"s, you are awarded $1000. If there are no letters in the puzzle, you lose that amount. So if spin $500 and you choose "X" and there are no "X"s, you lose $500 from your score.
+If you spinning the wheel will give you a value (or if you are unlucky, you will hit the bankrupt space and lose all your money!). 
+When you get the value you can guess a letter, you are awarded the prize * the amount of letters in the puzzle. 
+For example, if you spin $500, choose "T" and there are 2 "T"s, you are awarded $1000. 
+If there are no letters in the puzzle, you lose that amount. So if spin $500 and you choose "X" and there are no "X"s, you lose $500 from your score.
 
 You can also choose to Buy a Vowel. Vowels cost $1500. If you do not have $1500, you will be told you cannot afford to buy a vowel.
 
-Your last option is to Solve the Puzzle. If you think you know what the puzzle is, and do not want to risk bankruptcy on the wheel, or purchase more vowels, you can solve the puzzle. If you guess correctly (and your score is not negative) you win!
+Your last option is to Solve the Puzzle. If you think you know what the puzzle is, and do not want to risk bankruptcy on the wheel, or purchase more vowels, you can solve the puzzle. 
+If you guess correctly (and your score is not negative) you win!
